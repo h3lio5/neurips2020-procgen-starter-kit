@@ -1,8 +1,10 @@
 {
-    "challenge_id" : "evaluations-api-neurips-2020-procgen",
+    "challenge_id": "evaluations-api-neurips-2020-procgen",
     "grader_id": "evaluations-api-neurips-2020-procgen",
-    "authors" : ["Sharada Mohanty <mohanty@aicrowd.com>"],
+    "authors": [
+        "Akash S M <akashsm@ce.iitr.ac.in>"
+    ],
     "description": "Procgen test submission",
     "docker_build": false,
-    "debug" : false
+    "debug": false
 }
