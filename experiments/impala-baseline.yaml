@@ -112,7 +112,7 @@ procgen-ppo:
         clip_actions: True
         # Whether to use rllib or deepmind preprocessors by default
         #preprocessor_pref: deepmind
-        custom_preprocessor: MyPreprocessor
+        
 
         # Whether to attempt to continue training if a worker crashes. The number
         # of currently healthy workers is reported as the "num_healthy_workers"
@@ -189,6 +189,7 @@ procgen-ppo:
             # here :
             # https://github.com/ray-project/ray/blob/master/rllib/examples/custom_keras_model.py
             custom_model: impala_cnn_torch
+            custom_preprocessor: MyPreprocessor
             # Extra options to pass to custom class
             custom_options: {}
 
