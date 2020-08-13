@@ -62,7 +62,11 @@ def random_crop(imgs, size=64, w1=None, h1=None, return_w1_h1=False):
     is_tensor = isinstance(imgs, torch.Tensor)
     if is_tensor:
         assert imgs.is_cuda, 'input images are tensors but not cuda!'
-        return random_crop_cuda(imgs, size=size, w1=w1, h1=h1, return_w1_h1=return_w1_h1)
+        return random_crop_cuda(imgs,
+                                size=size,
+                                w1=w1,
+                                h1=h1,
+                                return_w1_h1=return_w1_h1)
 
     n = imgs.shape[0]
     img_size = imgs.shape[-1]
@@ -92,7 +96,6 @@ class MyPreprocessorClass(Preprocessor):
 
     Adopted from https://docs.ray.io/en/master/rllib-models.html#custom-preprocessors
     """
-
     def _init_shape(self, obs_space, options):
         return obs_space.shape  # New shape after preprocessing
 

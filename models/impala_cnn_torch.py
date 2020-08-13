@@ -9,9 +9,15 @@ torch, nn = try_import_torch()
 class ResidualBlock(nn.Module):
     def __init__(self, channels):
         super().__init__()
-        self.conv0 = nn.Conv2d(in_channels=channels, out_channels=channels, kernel_size=3, padding=1)
-        self.conv1 = nn.Conv2d(in_channels=channels, out_channels=channels, kernel_size=3, padding=1)
-    
+        self.conv0 = nn.Conv2d(in_channels=channels,
+                               out_channels=channels,
+                               kernel_size=3,
+                               padding=1)
+        self.conv1 = nn.Conv2d(in_channels=channels,
+                               out_channels=channels,
+                               kernel_size=3,
+                               padding=1)
+
     def forward(self, x):
         inputs = x
         x = nn.functional.relu(x)
@@ -26,7 +32,10 @@ class ConvSequence(nn.Module):
         super().__init__()
         self._input_shape = input_shape
         self._out_channels = out_channels
-        self.conv = nn.Conv2d(in_channels=self._input_shape[0], out_channels=self._out_channels, kernel_size=3, padding=1)
+        self.conv = nn.Conv2d(in_channels=self._input_shape[0],
+                              out_channels=self._out_channels,
+                              kernel_size=3,
+                              padding=1)
         self.res_block0 = ResidualBlock(self._out_channels)
         self.res_block1 = ResidualBlock(self._out_channels)
 
@@ -50,7 +59,6 @@ class ImpalaCNN(TorchModelV2, nn.Module):
     Based on https://github.com/ray-project/ray/blob/master/rllib/models/tf/visionnet_v2.py
     and https://github.com/openai/baselines/blob/9ee399f5b20cd70ac0a871927a6cf043b478193f/baselines/common/models.py#L28
     """
-
     def __init__(self, obs_space, action_space, num_outputs, model_config,
                  name):
         TorchModelV2.__init__(self, obs_space, action_space, num_outputs,
@@ -66,10 +74,11 @@ class ImpalaCNN(TorchModelV2, nn.Module):
             shape = conv_seq.get_output_shape()
             conv_seqs.append(conv_seq)
         self.conv_seqs = nn.ModuleList(conv_seqs)
-        self.hidden_fc = nn.Linear(in_features=shape[0] * shape[1] * shape[2], out_features=256)
+        self.hidden_fc = nn.Linear(in_features=shape[0] * shape[1] * shape[2],
+                                   out_features=256)
         self.logits_fc = nn.Linear(in_features=256, out_features=num_outputs)
         self.value_fc = nn.Linear(in_features=256, out_features=1)
-        
+
     @override(TorchModelV2)
     def forward(self, input_dict, state, seq_lens):
         x = input_dict["obs"].float()
@@ -90,5 +99,6 @@ class ImpalaCNN(TorchModelV2, nn.Module):
     def value_function(self):
         assert self._value is not None, "must call forward() first"
         return self._value
+
 
 ModelCatalog.register_custom_model("impala_cnn_torch", ImpalaCNN)

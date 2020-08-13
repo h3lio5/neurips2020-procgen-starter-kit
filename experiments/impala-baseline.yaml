@@ -111,7 +111,7 @@ procgen-ppo:
         # Whether to np.clip() actions to the action space low/high range spec.
         clip_actions: True
         # Whether to use rllib or deepmind preprocessors by default
-        #preprocessor_pref: deepmind
+        preprocessor_pref: deepmind
         
 
         # Whether to attempt to continue training if a worker crashes. The number
@@ -189,7 +189,7 @@ procgen-ppo:
             # here :
             # https://github.com/ray-project/ray/blob/master/rllib/examples/custom_keras_model.py
             custom_model: impala_cnn_torch
-            custom_preprocessor: MyPreprocessor
+            # custom_preprocessor: MyPreprocessor
             # Extra options to pass to custom class
             custom_options: {}
 
