@@ -4,6 +4,7 @@ import numpy as np
 from ray.rllib.utils import try_import_torch
 torch = try_import_torch()
 from ray.rllib.models.preprocessors import Preprocessor
+from ray.rllib.models import ModelCatalog
 
 
 def random_crop_cuda(x, size=84, w1=None, h1=None, return_w1_h1=False):
@@ -97,9 +98,16 @@ class MyPreprocessorClass(Preprocessor):
     Adopted from https://docs.ray.io/en/master/rllib-models.html#custom-preprocessors
     """
     def _init_shape(self, obs_space, options):
-        return obs_space.shape  # New shape after preprocessing
+        return (48, 48, 3)  # New shape after preprocessing
 
     def transform(self, observation):
         # Do your custom stuff
-        observation = random_crop(observation)
+        h, w = observation.shape[:2]
+        new_h, new_w = 48, 48
+        top = np.random.randint(0, h - new_h)
+        left = np.random.randint(0, w - new_w)
+        observation = observation[top:top + new_h, left:left + new_w]
         return observation
+
+
+ModelCatalog.register_custom_preprocessor("my_prep", MyPreprocessorClass)
