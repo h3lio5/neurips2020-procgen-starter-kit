@@ -103,7 +103,7 @@ class MyPreprocessorClass(Preprocessor):
     def transform(self, observation):
         # Do your custom stuff
         h, w = observation.shape[:2]
-        new_h, new_w = 48, 48
+        new_h, new_w = 56, 56
         top = np.random.randint(0, h - new_h)
         left = np.random.randint(0, w - new_w)
         observation = observation[top:top + new_h, left:left + new_w]
