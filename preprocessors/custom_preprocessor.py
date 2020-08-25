@@ -98,7 +98,7 @@ class MyPreprocessorClass(Preprocessor):
     Adopted from https://docs.ray.io/en/master/rllib-models.html#custom-preprocessors
     """
     def _init_shape(self, obs_space, options):
-        return (48, 48, 3)  # New shape after preprocessing
+        return (56, 56, 3)  # New shape after preprocessing
 
     def transform(self, observation):
         # Do your custom stuff
