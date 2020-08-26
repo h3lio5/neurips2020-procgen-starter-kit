@@ -98,10 +98,6 @@ class MyPreprocessorClass(Preprocessor):
 
     Adopted from https://docs.ray.io/en/master/rllib-models.html#custom-preprocessors
     """
-    
-        self.transform_module = nn.Sequential(
-            ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.5))
-
     def _init_shape(self, obs_space, options):
         return (64, 64, 3)  # New shape after preprocessing
 
@@ -113,7 +109,10 @@ class MyPreprocessorClass(Preprocessor):
         # left = np.random.randint(0, w - new_w)
         # observation = observation[top:top + new_h, left:left + new_w]
         observation = observation.permute(2, 0, 1)
-        transform_module = ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.5)
+        transform_module = ColorJitter(brightness=0.4,
+                                       contrast=0.4,
+                                       saturation=0.4,
+                                       hue=0.5)
         observation = transform_module(observation).permute(1, 2, 0)
 
         return observation
