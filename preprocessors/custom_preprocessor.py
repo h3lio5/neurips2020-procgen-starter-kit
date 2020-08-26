@@ -6,6 +6,7 @@ torch, nn = try_import_torch()
 from ray.rllib.models.preprocessors import Preprocessor
 from ray.rllib.models import ModelCatalog
 from torchvision.transforms import ColorJitter
+from PIL import Image
 
 
 def random_crop_cuda(x, size=84, w1=None, h1=None, return_w1_h1=False):
@@ -108,13 +109,18 @@ class MyPreprocessorClass(Preprocessor):
         # top = np.random.randint(0, h - new_h)
         # left = np.random.randint(0, w - new_w)
         # observation = observation[top:top + new_h, left:left + new_w]
-        # observation = observation.permute(2, 0, 1)
-        # transform_module = ColorJitter(brightness=0.4,
-        #                                contrast=0.4,
-        #                                saturation=0.4,
-        #                                hue=0.5)
-        # observation = transform_module(observation).permute(1, 2, 0)
-
+        #print("orig ", observation.shape)
+        #observation = observation.transpose(2,0,1)
+        #print("after trans ", observation.shape)
+        observation = Image.fromarray(observation.astype('uint8'), 'RGB')
+        transform_module = ColorJitter(brightness=0.4,
+                                       contrast=0.4,
+                                       saturation=0.4,
+                                       hue=0.5)
+        observation = np.array(transform_module(observation))
+        #print(type(observation))
+        #observation = observation.transpose(1,2,0)
+        #print("final ",observation.shape)
         return observation
 
 
