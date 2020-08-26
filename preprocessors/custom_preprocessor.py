@@ -5,7 +5,7 @@ from ray.rllib.utils import try_import_torch
 torch, nn = try_import_torch()
 from ray.rllib.models.preprocessors import Preprocessor
 from ray.rllib.models import ModelCatalog
-from torchvision.transforms import ColorJitterLayer
+from torchvision.transforms import ColorJitter
 
 
 def random_crop_cuda(x, size=84, w1=None, h1=None, return_w1_h1=False):
@@ -111,10 +111,7 @@ class MyPreprocessorClass(Preprocessor):
         h, w, c = observation.shape
         observation = observation.view(c, h, w)
         transform_module = nn.Sequential(
-            ColorJitterLayer(brightness=0.4,
-                             contrast=0.4,
-                             saturation=0.4,
-                             hue=0.5))
+            ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.5))
 
         observation = transform_module(observation).view(h, w, c)
 
