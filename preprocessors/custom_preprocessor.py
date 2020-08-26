@@ -108,12 +108,12 @@ class MyPreprocessorClass(Preprocessor):
         # top = np.random.randint(0, h - new_h)
         # left = np.random.randint(0, w - new_w)
         # observation = observation[top:top + new_h, left:left + new_w]
-        observation = observation.permute(2, 0, 1)
-        transform_module = ColorJitter(brightness=0.4,
-                                       contrast=0.4,
-                                       saturation=0.4,
-                                       hue=0.5)
-        observation = transform_module(observation).permute(1, 2, 0)
+        # observation = observation.permute(2, 0, 1)
+        # transform_module = ColorJitter(brightness=0.4,
+        #                                contrast=0.4,
+        #                                saturation=0.4,
+        #                                hue=0.5)
+        # observation = transform_module(observation).permute(1, 2, 0)
 
         return observation
 
