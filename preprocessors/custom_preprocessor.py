@@ -98,10 +98,7 @@ class MyPreprocessorClass(Preprocessor):
 
     Adopted from https://docs.ray.io/en/master/rllib-models.html#custom-preprocessors
     """
-    def __init__(self):
-
-        super(MyPreprocessorClass, self).__init__()
-
+    
         self.transform_module = nn.Sequential(
             ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.5))
 
@@ -116,8 +113,8 @@ class MyPreprocessorClass(Preprocessor):
         # left = np.random.randint(0, w - new_w)
         # observation = observation[top:top + new_h, left:left + new_w]
         observation = observation.permute(2, 0, 1)
-
-        observation = self.transform_module(observation).permute(1, 2, 0)
+        transform_module = ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.5)
+        observation = transform_module(observation).permute(1, 2, 0)
 
         return observation
 
