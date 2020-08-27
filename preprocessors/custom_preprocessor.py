@@ -15,13 +15,15 @@ class MyPreprocessorClass(Preprocessor):
     Adopted from https://docs.ray.io/en/master/rllib-models.html#custom-preprocessors
     """
     def _init_shape(self, obs_space, options):
-        if self.gray_scale:
+        self.flag = 1
+        if self.flag == 5:
             return (64, 64, 1)
         return (64, 64, 3)  # New shape after preprocessing
 
     def transform(self, observation):
 
         flag = np.random.randint(1, 6)
+        self.flag = flag
         if flag == 1:
             observation = Image.fromarray(observation.astype('uint8'), 'RGB')
             transform_module = ColorJitter(brightness=0.4,
