@@ -51,7 +51,8 @@ class MyPreprocessorClass(Preprocessor):
                                       0] * 0.2989 + observation[:, :,
                                                                 1] * 0.587 + observation[:, :,
                                                                                          2] * 0.114
-            return observation
+
+            return np.expand_dims(observation, axis=0)
 
 
 ModelCatalog.register_custom_preprocessor("my_prep", MyPreprocessorClass)
