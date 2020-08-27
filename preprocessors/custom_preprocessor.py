@@ -39,27 +39,23 @@ class MyPreprocessorClass(Preprocessor):
             h1 = np.random.randint(10, 20)
             w1 = np.random.randint(10, 20)
             observation[h1:h1 + h1, w1:w1 + w1, :] = 0
-            print("cutout ", observation.shape)
             return observation
 
-        # elif flag == 4:
-        #     h1 = np.random.randint(10, 20)
-        #     w1 = np.random.randint(10, 20)
-        #     rand_color = np.random.randint(0, 255, size=(3, )) / 255.
-        #     observation[h1:h1 + h1, w1:w1 + w1, :] = np.tile(
-        #         rand_color.reshape(1, 1, -1),
-        #         observation[h1:h1 + h1, w1:w1 + w1, :].shape[:2] + (1, ))
-        #     print("color cutout ", observation.shape)
-        #     return observation
+        elif flag == 4:
+            h1 = np.random.randint(10, 20)
+            w1 = np.random.randint(10, 20)
+            rand_color = np.random.randint(0, 255, size=(3, )) / 255.
+            observation[h1:h1 + h1, w1:w1 + w1, :] = np.tile(
+                rand_color.reshape(1, 1, -1),
+                observation[h1:h1 + h1, w1:w1 + w1, :].shape[:2] + (1, ))
+            return observation
 
         elif flag == 5:
             observation = observation[:, :,
                                       0] * 0.2989 + observation[:, :,
                                                                 1] * 0.587 + observation[:, :,
                                                                                          2] * 0.114
-            print("old ", observation.shape)
             observation = np.expand_dims(observation, axis=2)
-            print("new ", observation.shape)
             return observation
 
 
