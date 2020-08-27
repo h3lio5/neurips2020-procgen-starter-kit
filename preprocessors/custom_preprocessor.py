@@ -15,6 +15,8 @@ class MyPreprocessorClass(Preprocessor):
     Adopted from https://docs.ray.io/en/master/rllib-models.html#custom-preprocessors
     """
     def _init_shape(self, obs_space, options):
+        if self.gray_scale:
+            return (64, 64, 1)
         return (64, 64, 3)  # New shape after preprocessing
 
     def transform(self, observation):
@@ -47,12 +49,13 @@ class MyPreprocessorClass(Preprocessor):
             return observation
 
         elif flag == 5:
+            self.gray_scale = True
             observation = observation[:, :,
                                       0] * 0.2989 + observation[:, :,
                                                                 1] * 0.587 + observation[:, :,
                                                                                          2] * 0.114
 
-            return np.expand_dims(observation, axis=0)
+            return np.expand_dims(observation, axis=2)
 
 
 ModelCatalog.register_custom_preprocessor("my_prep", MyPreprocessorClass)
