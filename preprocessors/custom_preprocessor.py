@@ -29,7 +29,7 @@ class MyPreprocessorClass(Preprocessor):
             return np.array(transform_module(observation))
 
         elif flag == 2:
-            return observation.flip(1)
+            return np.flip(observation, 1)
 
         elif flag == 3:
             h1 = np.random.randint(10, 20)
