@@ -39,6 +39,7 @@ class MyPreprocessorClass(Preprocessor):
             h1 = np.random.randint(10, 20)
             w1 = np.random.randint(10, 20)
             observation[h1:h1 + h1, w1:w1 + w1, :] = 0
+            print("cutout ", observation.shape)
             return observation
 
         elif flag == 4:
@@ -48,6 +49,7 @@ class MyPreprocessorClass(Preprocessor):
             observation[h1:h1 + h1, w1:w1 + w1, :] = np.tile(
                 rand_color.reshape(1, 1, -1),
                 observation[h1:h1 + h1, w1:w1 + w1, :].shape[:2] + (1, ))
+            print("color cutout ", observation.shape)
             return observation
 
         elif flag == 5:
